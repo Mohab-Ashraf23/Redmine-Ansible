@@ -1,0 +1,25 @@
+# This is used for System Information
+sys_user: redmine
+sys_grp: redmine
+
+# This is used for the nginx + PHP server configuration.
+#nginx_port: 80
+#server_hostname: 
+#root_dir: /home/{{ sys_user }}/pub_html/wordpress/
+#web_host: localhost
+
+# MySQL settings
+#mysqlservice: mysqld
+#mysql_port: 3306
+#db_host: localhost
+#mysql_root_username: root
+#mysql_root_password: 123
+
+# Database Settings
+wp_db_name: redmine
+wp_db_user: redmine
+wp_db_password: redmine
+mysql_root_password: fart
+
+
+

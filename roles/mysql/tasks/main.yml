@@ -1,0 +1,33 @@
+---
+  - name: Install MySQL
+    apt: name={{ item }} update_cache=yes cache_valid_time=3600 state=present
+    sudo: yes
+    with_items:
+    - python-mysqldb
+    - mysql-server
+  - name: Start the MySQL service
+    sudo: yes
+    service: 
+      name: mysql 
+      state: started
+      enabled: true
+  - name: update mysql root password for all root accounts
+    sudo: yes
+    mysql_user: 
+      name: root 
+      host: localhost 
+      password: "{{ mysql_root_password }}"
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      check_implicit_admin: yes
+      priv: "*.*:ALL,GRANT"
+    with_items:
+      - 127.0.0.1
+      - ::1
+      - localhost 
+  - name: Create Redmine database
+    mysql_db: name={{ wp_db_name }} state=present
+
+  - name: Create WordPress database user
+    mysql_user: name={{ wp_db_user }} password={{ wp_db_password }} priv={{ wp_db_name }}.*:ALL host=localhost state=present
+ 

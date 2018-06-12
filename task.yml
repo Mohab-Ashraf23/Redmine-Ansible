@@ -1,0 +1,9 @@
+---
+- name: Install redmine
+  hosts: redmine
+  remote_user: root
+  roles:
+    - ruby
+   # - passenger
+    - mysql
+   # - redmine
