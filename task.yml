@@ -1,9 +1,12 @@
 ---
 - name: Install redmine
   hosts: redmine
-  remote_user: root
+  user: root
+  become: yes
+  vars:
+    ansible_become_pass: vagrant
   roles:
     - ruby
-   # - passenger
+    - passenger
     - mysql
-   # - redmine
+    - redmine
