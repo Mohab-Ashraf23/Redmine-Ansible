@@ -2,8 +2,8 @@
 - name: Download Redmine
   get_url: url=https://www.redmine.org/releases/redmine-3.4.4.tar.gz dest=/data/redmine/redmine-3.4.4.tar.gz
 
-#- name: Unzip redmine
-#  shell: cd /data/redmine  ;  tar -zxvf redmine-3.4.4.tar.gz ; mv redmine-3.4.4 redmine
+- name: Unzip redmine
+  shell: cd /data/redmine  ;  tar -zxvf redmine-3.4.4.tar.gz ; mv redmine-3.4.4 redmine
 
 - name: Database configuration
   template: src=database.yml dest=/data/redmine/redmine/config/database.yml
@@ -16,7 +16,7 @@
   shell: cd /data/redmine/redmine ; bundle install --without development test
 
 - name:  use Rake to start the server
-  shell: cd /data/redmine/redmine ;  bundle exec rake generate_secret_token ; RAILS_ENV=production bundle exec rake db:migrate
+  shell: cd /data/redmine/redmine ;  bundle exec rake generate_secret_token ; RAILS_ENV=production bundle exec rake db:migrate ; RAILS_ENV=production bundle exec rake redmine:load_default_data REDMINE_LANG=en
   notify: restart nginx
 
 - name: Change permission
