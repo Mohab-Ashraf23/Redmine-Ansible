@@ -24,7 +24,15 @@
     with_items:
       - 127.0.0.1
       - ::1
-      - localhost 
+      - localhost
+
+  - name: Remove conf account
+    command: rm -f /etc/mysql/my.cnf
+  
+  - name: Copy Conf
+    template: src=my.cnf dest=/etc/mysql/my.cnf
+    notify: restart mysql
+    
   - name: Create Redmine database
     mysql_db: name={{ wp_db_name }} state=present
 
